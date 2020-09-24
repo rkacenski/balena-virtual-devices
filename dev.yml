@@ -16,8 +16,15 @@ services:
     stdin_open: true
     environment:
       DOCKER_HOST_PATH: ${PWD}
-  # web:
-  #   build: web
-  #   restart: always
-  #   ports:
-  #     - 80:80
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile.dev
+    restart: always
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: "npm run start"
+    stdin_open: true
